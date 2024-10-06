@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = Path.joinpath(BASE_DIR, 'DSM/templates')
 STATIC_DIR = Path.joinpath(BASE_DIR, 'DSM/static')
-
+AUTH_USER_MODEL = 'App.CustomUser'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'DSM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dsm',
+        'NAME': 'dsms',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
