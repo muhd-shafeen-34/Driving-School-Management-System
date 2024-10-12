@@ -17,6 +17,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = Path.joinpath(BASE_DIR, 'DSM/templates')
 STATIC_DIR = Path.joinpath(BASE_DIR, 'DSM/static')
 AUTH_USER_MODEL = 'App.CustomUser'
+
+LOGIN_URL = 'login'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
