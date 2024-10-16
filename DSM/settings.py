@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'DSM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dsms',
+        'NAME': 'helloworld',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',

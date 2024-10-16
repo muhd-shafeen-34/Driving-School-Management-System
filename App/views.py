@@ -4,7 +4,7 @@ from App.models import CustomUser
 from django.urls import reverse
 from App import forms
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 
 
@@ -50,3 +50,7 @@ def custom_login_view(request):
     else:
         form = forms.CustomLoginForm()
     return render(request, 'App/login.html', {'form': form})
+
+def custom_logout(request):
+    logout(request)  # This will log out the user
+    return redirect('login')  # Redirect to index after logout
