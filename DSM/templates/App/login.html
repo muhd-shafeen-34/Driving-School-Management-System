@@ -51,15 +51,6 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <span>
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    </span>
     <div class="card-body login-card-body">
       <p class="login-box-msg">Login in to start your session</p>
 
@@ -89,10 +80,23 @@
           </div>
           <!-- /.col -->
         </div>
+        <div class="row">
+          {% if messages %}
+          <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+            {% endif %}
+            {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
       </form>
     </div>
     <!-- /.login-card-body -->
   </div>
+  
 </div>
 <!-- /.login-box -->
 

@@ -26,7 +26,6 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     role = models.CharField(max_length=10, choices=[('admin', 'Admin'), ('instructor', 'Instructor'), ('student', 'Student')])
     date_joined = models.DateTimeField(default=timezone.now)  # Add this field
-    last_login = models.DateTimeField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
