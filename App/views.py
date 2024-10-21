@@ -54,3 +54,7 @@ def custom_login_view(request):
 def custom_logout(request):
     logout(request)  # This will log out the user
     return redirect('login')  # Redirect to index after logout
+
+
+def student_register(request):
+    return render(request,'App/register.html')

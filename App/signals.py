@@ -1,8 +1,10 @@
 # users/signals.py
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import CustomUser, Instructor, Student
 from django.core.mail import send_mail
+from django.conf import settings
+from .models import Instructor, CustomUser
 # @receiver(post_save, sender=CustomUser)
 # def create_profile(sender, instance, created, **kwargs):
 #     if created:
@@ -13,15 +15,62 @@ from django.core.mail import send_mail
 
 
 
-# @receiver(post_save, sender=CustomUser)
-# def user_created_signal(sender, instance, created, **kwargs):
+
+
+# @receiver(post_save, sender=Instructor)
+# def send_instructor_email(sender, instance, created, **kwargs):
 #     if created:
-#         if instance.role == 'instructor':
-#         # Action to perform when a new CustomUser is created
-#             send_mail(
-#                 'Welcome!',
-#                 'Thanks for signing up!',
-#                 'admin@drivingschool.com',
-#                 [instance.email],
-#                 fail_silently=False,
-#             )
+#         # Prepare email details
+#         fullname = instance.name
+#         email = instance.user.email  # Get email from the related CustomUser
+#         password = instance.user.password  # You should store the password securely
+
+#         subject = "Welcome to the Driving School"
+#         message = f"""
+#         Hello {fullname},
+
+#         You have been successfully added as an instructor to our Driving School Management System.
+
+#         Your login credentials are:
+#         - Email: {email}
+#         - Password: {password}
+
+#         Please log in at [Login URL] and consider changing your password after the first login.
+
+#         Best regards,
+#         Admin Team
+#         """
+
+#         # Send the email
+#         send_mail(subject, message, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+
+
+# Import your models
+
+
+# Send email with raw password
+
+
+
+def send_welcome_email(Instructor, raw_password):
+    fullname = Instructor.name
+    email = Instructor.user.email
+
+    # Prepare the email content
+    subject = "Welcome to the Driving School"
+    message = f"""
+    Hello {fullname},
+
+    You have been successfully added as an instructor to our Driving School Management System.
+
+    Your login credentials are:
+    - Email: {email}
+    - Password: {raw_password}
+
+
+    Best regards,
+    Admin Team
+    """
+
+    # Send the email
+    send_mail(subject, message, settings.EMAIL_HOST_USER, [email], fail_silently=False)

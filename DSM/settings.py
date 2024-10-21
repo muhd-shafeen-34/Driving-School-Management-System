@@ -29,6 +29,17 @@ SECRET_KEY = 'django-insecure-^p@5bdqp*gkpau)$3^)7pxr(chke7ad_s!a+$8teb@*yz6!9rg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#settings for sending email to the instructor
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kudumon004@gmail.com'
+EMAIL_HOST_PASSWORD = 'nsje uakp plsp spvh'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#email finish
+
 ALLOWED_HOSTS = []
 
 
