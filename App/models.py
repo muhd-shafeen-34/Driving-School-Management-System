@@ -53,5 +53,12 @@ class Student(models.Model):
     def __str__(self):
         return self.name
     
-
-
+class Package(models.Model):
+    instructor = models.ForeignKey(Instructor, on_delete=models.SET_NULL, null=True, blank=True)# Many instructors can be assigned to a package
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    duration = models.IntegerField(help_text="Duration in days")
+    
+    def __str__(self):
+        return self.name

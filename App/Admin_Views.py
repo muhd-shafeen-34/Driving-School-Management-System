@@ -71,3 +71,28 @@ def edit_staff_save(request):
         except:
              messages.error(request,"Editing data failed")
              return HttpResponseRedirect('/edit_staff/'+staff_id)
+    
+def add_package(request):
+    return render(request, 'App/Admin/add_package_template.html')
+
+def add_package_save(req):
+    if req.method != 'POST':
+        return HttpResponse("adding package is failed")
+    else:
+        name = req.POST.get('name')
+        desc = req.POST.get('desc')
+        price = req.POST.get('price')
+        duration = req.POST.get('duration')
+        try:
+            package = models.Package.objects.create(name=name, description=desc, price=price, duration=duration)
+            package.save()
+            
+            messages.success(req,"Successfully added package")
+            return HttpResponseRedirect('add_package')
+        except:
+            return HttpResponseRedirect('add_package')
+
+
+def manage_package(request):
+    packages = models.Package.objects.all()  
+    return render(request,'App/Admin/manage_package_template.html',{'packages':packages})
