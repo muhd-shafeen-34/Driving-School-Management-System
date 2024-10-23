@@ -26,8 +26,16 @@ urlpatterns = [
     path('admin_home',Admin_Views.admin_dashboard,name='admin_home'),
     path('add_staff',Admin_Views.add_staff,name='add_staff'),
     path('add_package',Admin_Views.add_package,name='add_package'),
+    path('edit_package/<str:package_id>',Admin_Views.edit_package,name='edit_package'),
+    path('edit_package_save',Admin_Views.edit_package_save,name='edit_package_save'),
+    
     path('add_staff_save',Admin_Views.add_staff_save,name='add_staff_save'),
     path('add_package_save',Admin_Views.add_package_save,name='add_package_save'),
+    path('assign_staff_package/<int:package_id>',Admin_Views.assign_staff_package,name='assign_staff_package'),
+    
+    
+    path('assign_this_instructor/<int:package_id>/<int:staff_id>',Admin_Views.assign_this_instructor,name='assign_this_instructor'),
+    
     path('manage_staff',Admin_Views.manage_staff,name='manage_staff'),
     path('manage_package',Admin_Views.manage_package,name='manage_package'),
     path('edit_staff/<str:staff_id>',Admin_Views.edit_staff,name='edit_staff'),

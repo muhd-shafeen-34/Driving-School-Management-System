@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from App import models
 from App.signals import send_welcome_email
@@ -18,6 +19,9 @@ def admin_dashboard(req):
 
 def add_staff(req):
     return render(req, 'App/Admin/add_staff_template.html')
+
+
+
 
 def add_staff_save(req):
     if req.method != 'POST':
@@ -44,9 +48,14 @@ def manage_staff(request):
     staffs = models.Instructor.objects.all()  
     return render(request,'App/Admin/manage_staff.html',{'staffs':staffs})
 
+
+
 def edit_staff(request,staff_id):
     staffs = models.Instructor.objects.get(user_id=staff_id)
-    return render(request,'App/Admin/edit_staff_template.html',{'staffs':staffs})     
+    return render(request,'App/Admin/edit_staff_template.html',{'staffs':staffs})
+
+
+     
 def edit_staff_save(request):
     if request.method!='POST':
         return HttpResponse("editing staff is failed")
@@ -96,3 +105,57 @@ def add_package_save(req):
 def manage_package(request):
     packages = models.Package.objects.all()  
     return render(request,'App/Admin/manage_package_template.html',{'packages':packages})
+
+def edit_package(request,package_id):
+    packages = models.Package.objects.get(id=package_id)
+    return render(request,'App/Admin/edit_package_template.html',{'packages':packages})
+
+
+def edit_package_save(request):
+    if request.method != 'POST':
+        return HttpResponse("Editing package Failed")
+    else:
+        try:
+            pack_id = request.POST.get('pack_id')
+            name = request.POST.get('name')
+            desc = request.POST.get('desc')
+            price = request.POST.get('price')
+            duration = request.POST.get('duration')
+            package = models.Package.objects.get(id=pack_id)
+            package.name = name
+            package.description = desc
+            package.price = price
+            package.duration = duration
+            package.save()
+            messages.success(request,"Successfully edited package")
+            return HttpResponseRedirect('/edit_staff/'+pack_id)
+        except:
+            messages.error(request,"Editing data failed")
+            return HttpResponseRedirect('/edit_staff/'+pack_id)
+        
+        
+        
+        
+    
+def assign_staff_package(request,package_id):
+    pack_id = get_object_or_404(models.Package, id=package_id)
+    staffs = models.Instructor.objects.all()
+    context = {'staffs':staffs,
+               'pack_id':pack_id,
+            }
+               
+    return render(request,'App/Admin/assign_staff_package.html',context)
+
+def assign_this_instructor(request,package_id,staff_id):
+        package = models.Package.objects.get(id=package_id)
+        instructor = models.Instructor.objects.get(user_id=staff_id)  # Assuming 'staff_id' is the 'user.id'
+        package.instructor = instructor
+        package.save()
+        messages.success(request,"Successfully assigned instructor")
+        return HttpResponseRedirect(reverse('manage_package'))
+
+    
+    
+
+    
+    

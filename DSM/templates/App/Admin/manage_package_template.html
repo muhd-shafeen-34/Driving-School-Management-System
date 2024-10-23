@@ -47,9 +47,9 @@
                 {% endif %}
                 <td><a href="/edit_package/{{ package.id }}" class="btn btn-success">Edit</a></td>
                 {% if package.instructor_id == NULL %}
-                <td><a href="/assign_instructor/{{ package.id }}" class="btn btn-success">Assign</a></td>
+                <td><a href="/assign_staff_package/{{ package.id }}" class="btn btn-success">Assign</a></td>
                 {% else %}
-                pass
+                <td><a href="/assign_staff_package/{{ package.id }}" class="btn btn-success">Assign another </a></td>
                 {% endif %}
             </tr>
               {% endfor %} 
@@ -60,7 +60,22 @@
       </div>
       <!-- /.card -->
     </div>
+    <div class="form-group">
+      {% if messages %}
+          <div class="col-12">
+          {% for message in messages %}
+              {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+              {% elif message.tags == 'success' %}
+                  <div class="alert alert-success" style="margin-top: 10px;">{{ message }}</div>
+              {% endif %}
+          {% endfor %}
+          </div>
+      {% endif %}
+      </div>
+    </div>
   </div>
+
   <!-- /.row -->
 {% endblock main_content %}
 <!-- /.content -->
