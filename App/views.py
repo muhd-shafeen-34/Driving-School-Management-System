@@ -1,8 +1,9 @@
+
 from django.shortcuts import render,redirect
-from django.http import HttpResponse,HttpResponseForbidden
+from django.http import HttpResponse,HttpResponseForbidden, HttpResponseRedirect
+from App import forms, models
 from App.models import CustomUser
-from django.urls import reverse
-from App import forms
+from django.urls import reverse 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
@@ -57,4 +58,26 @@ def custom_logout(request):
 
 
 def student_register(request):
-    return render(request,'App/register.html')
+    form = forms.StudentRegistrationForm()
+    return render(request, 'App/register.html', {'form': form})
+   
+def save_student(request):
+    if request.method == 'POST':
+        form = forms.StudentRegistrationForm(request.POST)
+        if form.is_valid():
+            fullname = form.cleaned_data.get('fullname')
+            email = form.cleaned_data.get('Email')
+            password = form.cleaned_data.get('Password')
+            address = form.cleaned_data.get('address')
+            phone = form.cleaned_data.get('phone_number')
+            date_of_birth = form.cleaned_data.get('date_of_birth')
+            
+            # Form is valid, process the data and save it
+            user = models.CustomUser.objects.create_user(email=email,password=password,role="student")
+            student = models.Student.objects.create(user=user, name=fullname, address=address, phone=phone, dob=date_of_birth)
+            # Example: Create user and student profile here
+            return HttpResponseRedirect('login')
+    else:
+        form = forms.StudentRegistrationForm()
+        return HttpResponseRedirect('register')
+    return render(request, 'App/register.html', {'form': form})

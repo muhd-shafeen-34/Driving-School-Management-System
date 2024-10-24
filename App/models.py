@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -49,6 +50,8 @@ class Student(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
+    is_approved = models.BooleanField(default=False)
+    dob = models.DateField(default=date(2000, 1, 1))
 
     def __str__(self):
         return self.name

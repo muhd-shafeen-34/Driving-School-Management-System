@@ -29,39 +29,89 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="/student_save" method="post">
+      <form method="post" action="/save_student">
+        {% csrf_token %}
+        <label for="date_of_birth">Full Name</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
+          {{form.fullname}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
+        <label for="date_of_birth">Email</label>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          {{form.Email}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+        <label for="date_of_birth">Password</label>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          {{form.Password}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+              {% if form.password.errors %}
+        <p class="error">{{ form.password.errors }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <label for="date_of_birth">Confirm password</label>
+        <div class="input-group mb-3">
+          {{form.confirm_password}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        {% if form.confirm_password.errors %}
+        <p class="error">{{ form.confirm_password.errors }}</p>
+              {% endif %}
+        <label for="date_of_birth">Address</label>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          {{form.address}}
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-home"></span>
             </div>
           </div>
         </div>
+        <label for="date_of_birth">Date of Birth</label>
+        <div class="input-group mb-3">
+         
+          {{form.date_of_birth}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class=""></span>
+            </div>
+          </div>
+        </div>
+        {% if form.date_of_birth.errors %}
+        <p class="error">{{ form.date_of_birth.errors }}</p>
+    {% endif %}
+
+    <label for="date_of_birth">Phone number</label>
+        <div class="input-group mb-3">
+          {{form.phone_number}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
+            </div>
+          </div>
+        </div>
+        {% if form.phone_number.errors %}
+    <p class="error">
+        <!-- {% for error in form.phone_number.errors %} -->
+            {{ form.phone_number.errors }}
+        <!-- {% endfor %} -->
+    </p>
+{% endif %}
         <div class="row">
           <div class="col-8">
           </div>

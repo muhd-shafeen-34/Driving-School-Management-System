@@ -23,6 +23,7 @@ urlpatterns = [
     path('',views.index),
     path('login',views.custom_login_view, name='login'),
     path('register',views.student_register, name='register'),
+    path('save_student',views.save_student, name='save_student'),
     path('admin_home',Admin_Views.admin_dashboard,name='admin_home'),
     path('add_staff',Admin_Views.add_staff,name='add_staff'),
     path('add_package',Admin_Views.add_package,name='add_package'),
