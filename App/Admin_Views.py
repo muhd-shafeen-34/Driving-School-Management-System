@@ -154,8 +154,65 @@ def assign_this_instructor(request,package_id,staff_id):
         messages.success(request,"Successfully assigned instructor")
         return HttpResponseRedirect(reverse('manage_package'))
 
-    
+
+def pending_student(request):
+    students = models.Student.objects.filter(is_approved=False)
+    return render(request,'App/Admin/pending_student_template.html',{"students":students})
+
+def approve_student(request,student_id):
+    student = models.Student.objects.get(user_id=student_id)
+    student.is_approved = True
+    student.save()
+    return HttpResponseRedirect(reverse('pending_student'))
+
+def reject_student(request,student_id):
+    student = models.Student.objects.get(user_id=student_id)
+    student.user.delete()
+    return HttpResponseRedirect(reverse(pending_student))
     
 
+
+
+
+def manage_student(request):
+    students = models.Student.objects.filter(is_approved=True)
+    return render(request,'App/Admin/manage_student_template.html',{"students":students})
+
+def delete_student(request,student_id):
+    student = models.Student.objects.get(user_id=student_id)
+    student.user.delete()
+    return HttpResponseRedirect(reverse(manage_student))
+    
+    
+def edit_student(request,student_id):
+    students = models.Student.objects.get(user_id=student_id)
+    return render(request,'App/Admin/edit_student_template.html',{"students":students})
+
+def edit_student_save(request):
+    if request.method!='POST':
+        return HttpResponse("editing student is failed")
+    else:
+        try:
+            student_id = request.POST.get('student_id')
+            email = request.POST.get('email')
+            fullname = request.POST.get('fullname')
+            address = request.POST.get('address')
+            phone = request.POST.get('phone')
+            dob = request.POST.get('dob') 
+            user = models.CustomUser.objects.get(id=student_id)
+            user.email = email
+            user.save()
+            student = models.Student.objects.get(user_id=student_id)
+            student.name = fullname
+            student.address = address
+            student.phone = phone
+            student.dob = dob
+            student.save()
+            messages.success(request,"Successfully edited student")
+            return HttpResponseRedirect('/edit_student/'+student_id)    
+        except:
+             messages.error(request,"Editing data failed")
+             return HttpResponseRedirect('/edit_student/'+student_id)
+    
     
     

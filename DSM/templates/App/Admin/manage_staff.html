@@ -29,6 +29,7 @@
                 <th>Specialization</th>
                 <th>phone</th>
                 <th>Joined date</th>
+
               </tr>
             </thead>
             <tbody>
@@ -40,7 +41,8 @@
                 <td>{{ staff.specialization }}</td>
                 <td>{{ staff.phone }}</td>
                 <td>{{ staff.user.date_joined }}</td>
-                <td><a href="/edit_staff/{{ staff.user.id }}" class="btn btn-success">Edit</a></td>
+                <td><a href="/edit_staff/{{ staff.user.id }}"><i class="fa fa-edit"></a></td>
+                <td><a href="/edit_staff/{{ staff.user.id }}" ><i class="fa fa-trash"></i></a></td>
             </tr>
               {% endfor %} 
             </tbody>
@@ -54,3 +56,14 @@
   <!-- /.row -->
 {% endblock main_content %}
 <!-- /.content -->
+
+
+
+
+
+
+
+
+<a  href="path/to/settings" aria-label="Delete">
+  <i class="fa fa-trash-o" aria-hidden="true"></i>
+</a>

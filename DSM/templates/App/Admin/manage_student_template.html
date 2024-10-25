@@ -1,0 +1,62 @@
+{% extends 'App/Admin/base.html' %}
+{% block page_title %} 
+Manage Students 
+ {% endblock page_title %}
+{% block main_content %}
+
+
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Fixed Header Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fullname</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Date of Birth</th>
+                      <th>Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for students in students %}
+                    <tr>
+                      
+                      <td>{{ students.user.id }}</td>
+                      <td>{{ students.name }}</td>
+                      <td>{{ students.user.email }}</td>
+                      <td>{{ students.address }}</td>
+                      <td>{{ students.dob }}</td> 
+                      <td>{{ students.phone }}</td>
+                      <td><a href="/edit_student/{{ students.user.id }}" class="btn btn-success">Edit</a>
+                        <a href="/delete_student/{{ students.user.id }}" class="btn btn-success"
+                        onclick="return confirm('Are you sure you want to delete this student?');">Delete</a></td></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+
+{% endblock main_content %}

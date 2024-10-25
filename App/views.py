@@ -25,11 +25,18 @@ def role_based_redirect(user):
     elif user.role == 'instructor':  # Custom role for staff
         return redirect('staff_home')  # Redirect to the staff dashboard
     elif user.role == 'student':  # Custom role for student
-        return redirect('student_home')  # Redirect to the student dashboard
+        if hasattr(user, 'student'):
+            # Check if the student is approved
+            if user.student.is_approved:
+                return redirect('student_home')  # Redirect to the student dashboard
+            else:
+                # Redirect to a page informing them that approval is pending
+                return redirect('waiting_page')  # Redirect to the pending student dashboard
     else:
         return redirect('/')  # Default redirect if no specific role is found
 
-
+def waiting_page(request):
+    return render(request,'App/500.html')
 
 def custom_login_view(request):
     if request.method == 'POST':
