@@ -48,11 +48,17 @@ def manage_staff(request):
     staffs = models.Instructor.objects.all()  
     return render(request,'App/Admin/manage_staff.html',{'staffs':staffs})
 
+def delete_staff(request,staff_id):
+    staff = models.Instructor.objects.get(user_id=staff_id)
+    staff.user.delete()
+    return HttpResponseRedirect(reverse(manage_staff))
+
 
 
 def edit_staff(request,staff_id):
     staffs = models.Instructor.objects.get(user_id=staff_id)
     return render(request,'App/Admin/edit_staff_template.html',{'staffs':staffs})
+
 
 
      

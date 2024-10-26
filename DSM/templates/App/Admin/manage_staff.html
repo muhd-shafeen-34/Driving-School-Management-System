@@ -42,7 +42,7 @@
                 <td>{{ staff.phone }}</td>
                 <td>{{ staff.user.date_joined }}</td>
                 <td><a href="/edit_staff/{{ staff.user.id }}"><i class="fa fa-edit"></a></td>
-                <td><a href="/edit_staff/{{ staff.user.id }}" ><i class="fa fa-trash"></i></a></td>
+                <td><a href="/delete_staff/{{ staff.user.id }}" onclick="return confirm('Are you sure you want to delete this student?');" ><i class="fa fa-trash"></i></a></td>
             </tr>
               {% endfor %} 
             </tbody>

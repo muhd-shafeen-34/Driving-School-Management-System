@@ -40,6 +40,7 @@ urlpatterns = [
     path('manage_staff',Admin_Views.manage_staff,name='manage_staff'),
     path('manage_package',Admin_Views.manage_package,name='manage_package'),
     path('edit_staff/<str:staff_id>',Admin_Views.edit_staff,name='edit_staff'),
+    path('delete_staff/<str:staff_id>',Admin_Views.delete_staff,name="delete_Staff"),
     path('edit_staff_save',Admin_Views.edit_staff_save,name='edit_staff_save'),
     path('staff_home',Staff_Views.staff_dashboard,name='staff_home'),
     path('student_home',Student_Views.student_dashboard,name='student_home'),
