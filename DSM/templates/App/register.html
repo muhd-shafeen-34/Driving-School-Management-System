@@ -112,6 +112,18 @@
         <!-- {% endfor %} -->
     </p>
 {% endif %}
+<label for="package">Select Package</label>
+<div class="input-group mb-3">
+    {{ form.package }} <!-- This will render the select field for package -->
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-box"></span>
+        </div>
+    </div>
+</div>
+{% if form.package.errors %}
+<p class="error">{{ form.package.errors }}</p>
+{% endif %}
         <div class="row">
           <div class="col-8">
           </div>

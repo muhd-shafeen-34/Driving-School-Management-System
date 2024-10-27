@@ -152,6 +152,12 @@ def assign_staff_package(request,package_id):
                
     return render(request,'App/Admin/assign_staff_package.html',context)
 
+
+
+
+
+
+
 def assign_this_instructor(request,package_id,staff_id):
         package = models.Package.objects.get(id=package_id)
         instructor = models.Instructor.objects.get(user_id=staff_id)  # Assuming 'staff_id' is the 'user.id'
@@ -221,4 +227,20 @@ def edit_student_save(request):
              return HttpResponseRedirect('/edit_student/'+student_id)
     
     
+def assign_staff_student(request,student_id):
+    student_id = get_object_or_404(models.Student, user_id=student_id)
+    staffs = models.Instructor.objects.all()
+    context = {'staffs':staffs,
+               'student_id':student_id,
+            }
+               
+    return render(request,'App/Admin/assign_staff_student.html',context)
+
+def assign_this_instructor_to_student(request,student_id,staff_id):
+        student = models.Student.objects.get(user_id=student_id)
+        instructor = models.Instructor.objects.get(user_id=staff_id)  # Assuming 'staff_id' is the 'user.id'
+        student.instructor = instructor
+        student.save()
+        messages.success(request,"Successfully assigned instructor")
+        return HttpResponseRedirect(reverse('manage_student'))
     

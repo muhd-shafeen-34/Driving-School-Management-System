@@ -65,26 +65,33 @@ def custom_logout(request):
 
 
 def student_register(request):
-    form = forms.StudentRegistrationForm()
-    return render(request, 'App/register.html', {'form': form})
+    package_details = models.Package.objects.all()
+    package_choices = [(package.id, package.name) for package in package_details]  # Prepare choices in (id, name) format
+    form = forms.StudentRegistrationForm(package_choices = package_choices)
+    
+    return render(request, 'App/register.html', {'form': form,'package':package_details})
    
 def save_student(request):
+    package_details = models.Package.objects.all()
+    package_choices = [(package.id, package.name) for package in package_details]
     if request.method == 'POST':
         form = forms.StudentRegistrationForm(request.POST)
+        form.fields['package'].choices = package_choices
         if form.is_valid():
             fullname = form.cleaned_data.get('fullname')
             email = form.cleaned_data.get('Email')
             password = form.cleaned_data.get('Password')
             address = form.cleaned_data.get('address')
             phone = form.cleaned_data.get('phone_number')
-            date_of_birth = form.cleaned_data.get('date_of_birth')
+            date_of_birth = form.cleaned_data.get('date_of_birth') 
+            package = form.cleaned_data.get('package')
             
             # Form is valid, process the data and save it
             user = models.CustomUser.objects.create_user(email=email,password=password,role="student")
-            student = models.Student.objects.create(user=user, name=fullname, address=address, phone=phone, dob=date_of_birth)
+            student = models.Student.objects.create(user=user, name=fullname, address=address, phone=phone, dob=date_of_birth,package=models.Package.objects.get(id=package))
             # Example: Create user and student profile here
             return HttpResponseRedirect('login')
-    else:
-        form = forms.StudentRegistrationForm()
-        return HttpResponseRedirect('register')
+    # else:
+    #     form = forms.StudentRegistrationForm()
+    #     return HttpResponseRedirect('register')
     return render(request, 'App/register.html', {'form': form})

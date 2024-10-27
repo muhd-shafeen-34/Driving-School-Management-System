@@ -49,11 +49,13 @@ urlpatterns = [
     
     # student
     path('pending_student',Admin_Views.pending_student,name="pending_student"),
-    path('manage_student',Admin_Views.manage_student,name="edit_student"),
+    path('manage_student',Admin_Views.manage_student,name="manage_student"),
     path('approve_student/<int:student_id>',Admin_Views.approve_student,name="approve_student"),
     path('reject_student/<int:student_id>',Admin_Views.reject_student,name="reject_student"),
     path('delete_student/<int:student_id>',Admin_Views.delete_student,name="delete_student"),
     path('edit_student/<int:student_id>',Admin_Views.edit_student,name="edit_student"),
     path('edit_student_save',Admin_Views.edit_student_save,name='edit_student_save'),
     path('waiting_page',views.waiting_page,name="waiting_page"),
+    path('assign_staff_student/<int:student_id>',Admin_Views.assign_staff_student,name='assign_staff_student'),
+    path('assign_this_instructor_to_student/<int:student_id>/<int:staff_id>',Admin_Views.assign_this_instructor_to_student,name='assign_this_instructor_to_student'),
 ]

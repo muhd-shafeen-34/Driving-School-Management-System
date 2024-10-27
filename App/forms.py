@@ -38,7 +38,12 @@ class StudentRegistrationForm(forms.Form):
         'class': 'form-control',  # Add your desired class here
         'placeholder': 'phone number'
     }))
-    date_of_birth = forms.DateField(widget=forms.SelectDateWidget(years=range(1900, date.today().year),attrs={'class': 'form-control'}))
+    date_of_birth = forms.DateField(widget=forms.SelectDateWidget(years=range(1900, date.today().year),attrs={
+        'class': 'form-control'
+    }))
+    package = forms.ChoiceField(choices=[], widget=forms.Select(attrs={
+        'class': 'form-control'
+     }))
 
     
     
@@ -78,3 +83,9 @@ class StudentRegistrationForm(forms.Form):
             raise forms.ValidationError("Phone number must be at least 10 digits.")
 
         return phone
+    
+# Override the init method to accept dynamic package choices
+    def __init__(self, *args, **kwargs):
+        package_choices = kwargs.pop('package_choices', [])
+        super(StudentRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['package'].choices = package_choices

@@ -4,7 +4,7 @@ Pending Students
  {% endblock page_title %}
 {% block main_content %}
 
-
+{% if students %}
 <div class="row">
           <div class="col-12">
             <div class="card">
@@ -58,6 +58,29 @@ Pending Students
             <!-- /.card -->
           </div>
         </div>
+{% else %}
 
 
+<section class="content">
+  <div class="error-page">
+    <h2 class="headline text-danger">500</h2>
+
+    <div class="error-content">
+      <h1><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h1>
+
+      <p style="font-size: 20px;">
+        It seems like there are no pending request<br>
+        Meanwhile, you may <a href="/manage_student">chack the students details</a> and view them
+      </p>
+
+      
+    </div>
+  </div>
+  <!-- /.error-page -->
+
+</section>
+
+
+
+{% endif %}
 {% endblock main_content %}
