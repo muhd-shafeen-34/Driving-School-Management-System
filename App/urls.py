@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin_home',Admin_Views.admin_dashboard,name='admin_home'),
     path('add_staff',Admin_Views.add_staff,name='add_staff'),
     path('add_package',Admin_Views.add_package,name='add_package'),
+    path('students_under/<int:package_id>',Admin_Views.students_under_this_package,name='students_under'),
     path('edit_package/<str:package_id>',Admin_Views.edit_package,name='edit_package'),
     path('edit_package_save',Admin_Views.edit_package_save,name='edit_package_save'),
     
@@ -44,7 +45,7 @@ urlpatterns = [
     path('edit_staff_save',Admin_Views.edit_staff_save,name='edit_staff_save'),
     path('staff_home',Staff_Views.staff_dashboard,name='staff_home'),
     path('student_home',Student_Views.student_dashboard,name='student_home'),
-    path('logout/', views.custom_logout, name='logout'),
+    path('logout', views.custom_logout, name='logout'),
     
     
     # student
@@ -58,4 +59,9 @@ urlpatterns = [
     path('waiting_page',views.waiting_page,name="waiting_page"),
     path('assign_staff_student/<int:student_id>',Admin_Views.assign_staff_student,name='assign_staff_student'),
     path('assign_this_instructor_to_student/<int:student_id>/<int:staff_id>',Admin_Views.assign_this_instructor_to_student,name='assign_this_instructor_to_student'),
+    
+    
+    #instructor
+    path('instructor_profile',Staff_Views.instructor_profile,name="instructor_profile"),
+    path('students_under_instructor',Staff_Views.students_under_instructor,name="students_under_instructor")
 ]

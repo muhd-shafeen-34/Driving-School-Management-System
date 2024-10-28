@@ -45,6 +45,7 @@
                 {% else %}
                 <td>Instructor not assigned</td>
                 {% endif %}
+                <td><a href="/students_under/{{ package.id }}"><i class="fa fa-user"></a></td>
                 <td><a href="/edit_package/{{ package.id }}"><i class="fa fa-edit"></a></td>
                 {% if package.instructor_id == NULL %}
                 <td><a href="/assign_staff_package/{{ package.id }}" class="btn btn-success">Assign</a></td>

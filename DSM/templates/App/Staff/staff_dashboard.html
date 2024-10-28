@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Admin Panel</title>
-</head>
-<body>
-    <h1>Welcome to the Custom staff Panel</h1>
-    <p>Hello, {{ request.user.email }}!</p>
-    <!-- Add admin-specific features here -->
-</body>
-</html>
+{% extends 'App/Staff/base.html' %}
+{% block page_title %} Home {% endblock page_title %}
+{% block main_content %}
+<!-- main content -->
+<section class="content">
+  <div class="container-fluid">
+</section>
+{% endblock main_content %}
+<!-- /.content -->

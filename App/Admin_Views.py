@@ -165,7 +165,11 @@ def assign_this_instructor(request,package_id,staff_id):
         package.save()
         messages.success(request,"Successfully assigned instructor")
         return HttpResponseRedirect(reverse('manage_package'))
-
+    
+def students_under_this_package(request,package_id):
+    package = models.Package.objects.get(id=package_id)
+    student = models.Student.objects.filter(package=package_id)
+    return render(request,'App/Admin/students_under_template.html',{'package':package,'student':student})
 
 def pending_student(request):
     students = models.Student.objects.filter(is_approved=False)
