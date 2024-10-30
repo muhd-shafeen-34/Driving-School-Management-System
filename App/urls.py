@@ -63,5 +63,10 @@ urlpatterns = [
     
     #instructor
     path('instructor_profile',Staff_Views.instructor_profile,name="instructor_profile"),
-    path('students_under_instructor',Staff_Views.students_under_instructor,name="students_under_instructor")
+    path('students_under_instructor',Staff_Views.students_under_instructor,name="students_under_instructor"),
+    path('edit_profile_instructor/<int:staff_id>',Staff_Views.edit_profile_instructor,name="edit_profile_instructor"),
+    path('save_instructor_profile',Staff_Views.save_instructor_profile,name="save_instructor_profile"),
+    path('assign_class_timings/<int:staff_id>/<int:student_id>',Staff_Views.assign_class_schedule_form,name='assign_class _timings'),
+    path('save_class_schedule',Staff_Views.save_class_schedule,name="save_class_schedule"),
+    
 ]

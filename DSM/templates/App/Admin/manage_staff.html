@@ -29,6 +29,9 @@
                 <th>Specialization</th>
                 <th>phone</th>
                 <th>Joined date</th>
+                <th>Pic</th>
+                <th>License</th>
+                <th>Actions</th>
 
               </tr>
             </thead>
@@ -41,8 +44,10 @@
                 <td>{{ staff.specialization }}</td>
                 <td>{{ staff.phone }}</td>
                 <td>{{ staff.user.date_joined }}</td>
-                <td><a href="/edit_staff/{{ staff.user.id }}"><i class="fa fa-edit"></a></td>
-                <td><a href="/delete_staff/{{ staff.user.id }}" onclick="return confirm('Are you sure you want to delete this student?');" ><i class="fa fa-trash"></i></a></td>
+                <td><img src="{{staff.profile_picture.url}}" width="100" height="100"></td>
+                <td><a href="{{staff.license.url}}"><i class="fa fa-book"></i></a></td>
+                <td><a href="/edit_staff/{{ staff.user.id }}" class=" btn btn-success"><i class="fa fa-edit"></i></a>
+                <a href="/delete_staff/{{ staff.user.id }}" onclick="return confirm('Are you sure you want to delete this instructor?');" class=" btn btn-success"><i class="fa fa-trash"></i></a></td>
             </tr>
               {% endfor %} 
             </tbody>

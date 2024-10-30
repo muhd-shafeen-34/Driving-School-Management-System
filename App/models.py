@@ -2,6 +2,8 @@ from datetime import date
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import DateTimeRangeField
+from psycopg2.extras import DateTimeTZRange  # Needed to set time ranges
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -39,7 +41,10 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
 class Instructor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    age = models.TextField(max_length=100,default="18")
+    profile_picture = models.ImageField(upload_to='instructors/profile_pics/', blank=True, null=True)  # For image upload
     specialization = models.CharField(max_length=255)
+    license = models.FileField(upload_to='instructors/licenses/', blank=True, null=True)  # For image upload
     phone = models.CharField(max_length=20)
 
     def __str__(self):
@@ -72,3 +77,23 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+
+class ClassSchedule(models.Model):
+    instructor = models.ForeignKey('Instructor', on_delete=models.CASCADE, null=True, related_name='instructor_schedules')
+    student = models.ForeignKey('Student', on_delete=models.CASCADE, null=True, related_name='student_schedules')
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    # Using DateTimeRangeField for time ranges
+    monday_time_range = DateTimeRangeField(null=True, blank=True)
+    tuesday_time_range = DateTimeRangeField(null=True, blank=True)
+    wednesday_time_range = DateTimeRangeField(null=True, blank=True)
+    thursday_time_range = DateTimeRangeField(null=True, blank=True)
+    friday_time_range = DateTimeRangeField(null=True, blank=True)
+    saturday_time_range = DateTimeRangeField(null=True, blank=True)
+    
+
+    def __str__(self):
+        return f"{self.student} - {self.instructor} from {self.start_date} to {self.end_date}"
