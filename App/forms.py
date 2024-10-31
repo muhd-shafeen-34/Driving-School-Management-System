@@ -46,6 +46,14 @@ class StudentRegistrationForm(forms.Form):
     package = forms.ChoiceField(choices=[], widget=forms.Select(attrs={
         'class': 'form-control'
      }))
+    profile_pic = forms.ImageField(widget=forms.FileInput(attrs={
+        'class': 'form-control',  # Add your desired class here
+        'placeholder': 'add profile pic'
+    }))
+    proof = forms.FileField(widget=forms.FileInput(attrs={
+        'class': 'form-control',  # Add your desired class here
+        'placeholder': 'add ID - Proof'
+    }),required=True)
 
     
     

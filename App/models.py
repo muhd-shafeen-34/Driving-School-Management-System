@@ -72,6 +72,8 @@ class Student(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
+    profile_picture = models.ImageField(upload_to='students/profile_pics/', blank=True, null=True)  # For image upload
+    proof = models.FileField(upload_to='students/ID_Proofs/', blank=True, null=True)  # For image upload
     is_approved = models.BooleanField(default=False)
     dob = models.DateField(default=date(2000, 1, 1))
 

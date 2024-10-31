@@ -75,7 +75,7 @@ def save_student(request):
     package_details = models.Package.objects.all()
     package_choices = [(package.id, package.name) for package in package_details]
     if request.method == 'POST':
-        form = forms.StudentRegistrationForm(request.POST)
+        form = forms.StudentRegistrationForm(request.POST,request.FILES)
         form.fields['package'].choices = package_choices
         if form.is_valid():
             fullname = form.cleaned_data.get('fullname')
@@ -83,15 +83,17 @@ def save_student(request):
             password = form.cleaned_data.get('Password')
             address = form.cleaned_data.get('address')
             phone = form.cleaned_data.get('phone_number')
+            
             date_of_birth = form.cleaned_data.get('date_of_birth') 
             package = form.cleaned_data.get('package')
+            profile_pic = form.cleaned_data.get('profile_pic')
+            proof = form.cleaned_data.get('proof')
             
             # Form is valid, process the data and save it
             user = models.CustomUser.objects.create_user(email=email,password=password,role="student")
-            student = models.Student.objects.create(user=user, name=fullname, address=address, phone=phone, dob=date_of_birth,package=models.Package.objects.get(id=package))
+            student = models.Student.objects.create(user=user, name=fullname, address=address, phone=phone, dob=date_of_birth,package=models.Package.objects.get(id=package),profile_picture=profile_pic,proof=proof)
             # Example: Create user and student profile here
             return HttpResponseRedirect('login')
-    # else:
-    #     form = forms.StudentRegistrationForm()
-    #     return HttpResponseRedirect('register')
+        else:
+            return HttpResponse(form.errors)
     return render(request, 'App/register.html', {'form': form})

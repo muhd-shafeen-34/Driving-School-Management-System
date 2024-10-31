@@ -29,7 +29,7 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form method="post" action="/save_student">
+      <form method="post" action="/save_student" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="date_of_birth">Full Name</label>
         <div class="input-group mb-3">
@@ -112,6 +112,7 @@
         <!-- {% endfor %} -->
     </p>
 {% endif %}
+
 <label for="package">Select Package</label>
 <div class="input-group mb-3">
     {{ form.package }} <!-- This will render the select field for package -->
@@ -124,6 +125,24 @@
 {% if form.package.errors %}
 <p class="error">{{ form.package.errors }}</p>
 {% endif %}
+<label for="profile_pic">profile_picture</label>
+        <div class="input-group mb-3">
+          {{ form.profile_pic }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-home"></span>
+            </div>
+          </div>
+        </div>
+        <label for="ID_proof">ID Proof</label>
+        <div class="input-group mb-3">
+          {{ form.proof }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-home"></span>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-8">
           </div>

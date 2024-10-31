@@ -1,14 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Admin Panel</title>
-</head>
-<body>
-    <h1>Welcome to the Custom student Panel</h1>
-    <p>Hello, {{ request.user.email }}!</p>
-    <!-- Add admin-specific features here -->
-</body>
-</html>
+{% extends 'App/Student/base.html' %}
+{% block page_title %} Home {% endblock page_title %}
+{% block main_content %}
+<!-- main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div id="calendar"></div>
 
+    
+
+     <!-- Safely pass events data as JSON -->
+     <script type="application/json" id="events-data">
+        {{ events|safe }}
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("FullCalendar is initializing...");
+            var calendarEl = document.getElementById('calendar');
+
+            // Retrieve events data from the script tag
+            var eventsData = JSON.parse(document.getElementById('events-data').textContent);
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: eventsData,  // Use the events data retrieved from the script tag
+                eventDidMount: function(info) {
+                    // Custom rendering for event content
+                    if (info.event.extendedProps.time_range) {
+                        info.el.innerHTML += `<div>${info.event.extendedProps.time_range}</div>`;
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
+    </div>
+    
+  </div>
+</section>
+{% endblock main_content %}
+<!-- /.content -->
+
+
+JSON.parse(document.getElementById('events-data').textContent); 
