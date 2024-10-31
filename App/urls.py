@@ -43,8 +43,9 @@ urlpatterns = [
     path('edit_staff/<str:staff_id>',Admin_Views.edit_staff,name='edit_staff'),
     path('delete_staff/<str:staff_id>',Admin_Views.delete_staff,name="delete_Staff"),
     path('edit_staff_save',Admin_Views.edit_staff_save,name='edit_staff_save'),
+    path('view_student_feedback',Admin_Views.student_feedback_message,name="view_student_feedback"),
+    path('view_staff_feedback',Admin_Views.instructor_feedback_message,name="view_staff_feedback"),
     path('staff_home',Staff_Views.staff_dashboard,name='staff_home'),
-    path('student_home',Student_Views.student_dashboard,name='student_home'),
     path('logout', views.custom_logout, name='logout'),
     
     
@@ -68,5 +69,13 @@ urlpatterns = [
     path('save_instructor_profile',Staff_Views.save_instructor_profile,name="save_instructor_profile"),
     path('assign_class_timings/<int:staff_id>/<int:student_id>',Staff_Views.assign_class_schedule_form,name='assign_class _timings'),
     path('save_class_schedule',Staff_Views.save_class_schedule,name="save_class_schedule"),
+    path('instructor_sent_feedback',Staff_Views.staff_feedback,name="staff_sent_feedback"),
     
+    #students
+    path('student_home',Student_Views.student_dashboard,name='student_home'),
+    path('student_profile',Student_Views.student_profile,name='student_profile'),
+    path('edit_student_profile/<int:student_id>',Student_Views.student_edit_profile,name="edit_student_profile"),
+    path('save_student_profile',Student_Views.save_student_profile,name='save_student_profile'),
+    path('student_instructor',Student_Views.student_instructor,name="student_instructor"),
+    path('student_sent_feedback',Student_Views.student_feedback,name="student_feedback"),
 ]

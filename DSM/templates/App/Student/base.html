@@ -32,6 +32,8 @@
   
   {% block custom_css %}
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />  
+  
+  <link rel="stylesheet" href="{% static 'App/plugins/student_profile.css' %}">
 
   {% endblock custom_css %}
 </head>
@@ -46,7 +48,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="/student_home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'logout' %}" class="nav-link">Logout</a>

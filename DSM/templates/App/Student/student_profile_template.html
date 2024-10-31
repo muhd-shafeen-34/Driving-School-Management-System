@@ -1,0 +1,92 @@
+{% extends 'App/Student/base.html' %}
+{% block page_title %} Profile {% endblock page_title %}
+{% block main_content %}
+<section>
+    <div class="container">
+        <div class="main-body">
+        
+             
+              <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex flex-column align-items-center text-center">
+                        <img src="{{ student.profile_picture.url }}" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                          <h4>{{student.name}}</h4>
+                          <p class="text-secondary mb-1">{{ student.user.role }}</p>
+                          <p class="text-muted font-size-sm">{{ student.phone}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- details start -->
+                 
+                <div class="col-md-8">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{ student.name }}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{ student.user.email }}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Date of Birth</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{ student.dob }}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Age</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{age}}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Address</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{student.address}}
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <a class="btn btn-info " href="/edit_student_profile/{{ student.user.id }}">Edit</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <!--  details of students end
+     -->
+                </div>
+              </div>
+    
+            </div>
+        </div>
+</section>
+{% endblock main_content %}

@@ -99,3 +99,21 @@ class ClassSchedule(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.instructor} from {self.start_date} to {self.end_date}"
+
+
+class FeedbackStudent(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True)
+    feedback = models.TextField()
+    reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class FeedbackStaff(models.Model):
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE,null=True)
+    feedback = models.TextField()
+    reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    

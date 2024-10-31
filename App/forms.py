@@ -1,7 +1,7 @@
 from django import forms
 from datetime import date, datetime, timedelta
 from psycopg2.extras import DateTimeTZRange  # Needed to set time ranges
-from App.models import ClassSchedule
+from App.models import ClassSchedule, FeedbackStaff, FeedbackStudent
 
 class CustomLoginForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=100,widget=forms.TextInput(attrs={
@@ -180,3 +180,24 @@ class ClassScheduleForm(forms.ModelForm):
                     )
 
         return cleaned_data
+    
+    
+class FeedbackStudentForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(FeedbackStudentForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = FeedbackStudent
+        fields = ['feedback']
+        
+   
+        
+class FeedbackStaffForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(FeedbackStaffForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = FeedbackStaff
+        fields = ['feedback']

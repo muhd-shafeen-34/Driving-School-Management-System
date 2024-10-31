@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from psycopg2.extras import DateTimeTZRange
 from App import models
-from App.forms import ClassScheduleForm
+from App.forms import ClassScheduleForm, FeedbackStaffForm
 
 
 @never_cache
@@ -118,3 +118,28 @@ def save_class_schedule(request):
         else:
             print("Form Errors:", form.errors)
             return HttpResponse("assigning timings is failed due to form is not valid")
+        
+        
+
+
+def staff_feedback(request):
+    form = FeedbackStaffForm(request.POST or None)
+    instructor = get_object_or_404(models.Instructor,user_id=request.user.id)
+    context = {
+        'form': form,
+        'feedbacks': models.FeedbackStaff.objects.filter(instructor=instructor),
+        'page_title': 'Add Feedback'
+    }
+    if request.method == 'POST':
+        if form.is_valid():
+            try:
+                obj = form.save(commit=False)
+                obj.instructor = instructor
+                obj.save()
+                messages.success(request, "Feedback submitted for review")
+                return HttpResponseRedirect('instructor_sent_feedback')
+            except Exception:
+                messages.error(request, "Could not Submit!")
+        else:
+            messages.error(request, "Form has errors!")
+    return render(request, "App/Staff/instructor_feedback.html", context)

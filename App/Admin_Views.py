@@ -6,6 +6,7 @@ from django.views.decorators.cache import never_cache
 from App import models
 from App.signals import send_welcome_email
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 @never_cache
 @login_required(login_url='login')
@@ -251,4 +252,47 @@ def assign_this_instructor_to_student(request,student_id,staff_id):
         student.save()
         messages.success(request,"Successfully assigned instructor")
         return HttpResponseRedirect(reverse('manage_student'))
-    
+
+
+
+
+@csrf_exempt
+def student_feedback_message(request):
+    if request.method != 'POST':
+        feedbacks = models.FeedbackStudent.objects.all()
+        context = {
+            'feedbacks': feedbacks,
+            
+        }
+        return render(request, 'App/Admin/student_feedback_template.html', context)
+    else:
+        feedback_id = request.POST.get('id')
+        try:
+            feedback = get_object_or_404(models.FeedbackStudent, id=feedback_id)
+            reply = request.POST.get('reply')
+            feedback.reply = reply
+            feedback.save()
+            return HttpResponse(True)
+        except Exception as e:
+            return HttpResponse(False)    
+
+
+@csrf_exempt
+def instructor_feedback_message(request):
+    if request.method != 'POST':
+        feedbacks = models.FeedbackStaff.objects.all()
+        context = {
+            'feedbacks': feedbacks,
+           
+        }
+        return render(request, 'App/Admin/staff_feedback_template.html', context)
+    else:
+        feedback_id = request.POST.get('id')
+        try:
+            feedback = get_object_or_404(models.FeedbackStaff, id=feedback_id)
+            reply = request.POST.get('reply')
+            feedback.reply = reply
+            feedback.save()
+            return HttpResponse(True)
+        except Exception as e:
+            return HttpResponse(False)
