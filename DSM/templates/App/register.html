@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Registration Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'App/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'App/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'App/dist/css/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="/"><b>Admin</b>LTE</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new membership</p>
+
+      <form method="post" action="/save_student" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="date_of_birth">Full Name</label>
+        <div class="input-group mb-3">
+          {{form.fullname}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <label for="date_of_birth">Email</label>
+        <div class="input-group mb-3">
+          {{form.Email}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <label for="date_of_birth">Password</label>
+        <div class="input-group mb-3">
+          {{form.Password}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+              {% if form.password.errors %}
+        <p class="error">{{ form.password.errors }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <label for="date_of_birth">Confirm password</label>
+        <div class="input-group mb-3">
+          {{form.confirm_password}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        {% if form.confirm_password.errors %}
+        <p class="error">{{ form.confirm_password.errors }}</p>
+              {% endif %}
+        <label for="date_of_birth">Address</label>
+        <div class="input-group mb-3">
+          {{form.address}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-home"></span>
+            </div>
+          </div>
+        </div>
+        <label for="date_of_birth">Date of Birth</label>
+        <div class="input-group mb-3">
+         
+          {{form.date_of_birth}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class=""></span>
+            </div>
+          </div>
+        </div>
+        {% if form.date_of_birth.errors %}
+        <p class="error">{{ form.date_of_birth.errors }}</p>
+    {% endif %}
+
+    <label for="date_of_birth">Phone number</label>
+        <div class="input-group mb-3">
+          {{form.phone_number}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
+            </div>
+          </div>
+        </div>
+        {% if form.phone_number.errors %}
+    <p class="error">
+        <!-- {% for error in form.phone_number.errors %} -->
+            {{ form.phone_number.errors }}
+        <!-- {% endfor %} -->
+    </p>
+{% endif %}
+
+<label for="package">Select Package</label>
+<div class="input-group mb-3">
+    {{ form.package }} <!-- This will render the select field for package -->
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-box"></span>
+        </div>
+    </div>
+</div>
+{% if form.package.errors %}
+<p class="error">{{ form.package.errors }}</p>
+{% endif %}
+<label for="profile_pic">profile_picture</label>
+        <div class="input-group mb-3">
+          {{ form.profile_pic }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-home"></span>
+            </div>
+          </div>
+        </div>
+        <label for="ID_proof">ID Proof</label>
+        <div class="input-group mb-3">
+          {{ form.proof }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-home"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <a href="login" class="text-center">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="{% static 'App/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'App/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'App/dist/js/adminlte.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% extends 'App/Staff/base.html' %}
+{% block page_title %} 
+Assigning Class Timings 
+ {% endblock page_title %}
+{% block main_content %}
+<section class="content">
+    <form method="post" action="/save_class_schedule" class="p-4" style="background-color: #f7f7f7; border-radius: 8px;">
+        {% csrf_token %}
+        
+        <!-- Schedule Dates Section -->
+        <div class="form-row mb-4" style="border: 1px solid #ccc; border-radius: 5px; padding: 15px; background-color: #fff;">
+            <div class="form-group col-md-6">
+                {{ form.start_date.label_tag }}
+                {{ form.start_date }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form.end_date.label_tag }}
+                {{ form.end_date }}
+            </div>
+        </div>
+
+        <!-- Class Timing for Each Day -->
+        <div class="form-row">
+            <!-- Monday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Monday</h5>
+                <label>Start Time</label>
+                {{ form.monday_start }}
+                <label>End Time</label>
+                {{ form.monday_end }}
+            </div>
+
+            <!-- Tuesday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Tuesday</h5>
+                <label>Start Time</label>
+                {{ form.tuesday_start }}
+                <label>End Time</label>
+                {{ form.tuesday_end }}
+            </div>
+
+            <!-- Wednesday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Wednesday</h5>
+                <label>Start Time</label>
+                {{ form.wednesday_start }}
+                <label>End Time</label>
+                {{ form.wednesday_end }}
+            </div>
+
+            <!-- Thursday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Thursday</h5>
+                <label>Start Time</label>
+                {{ form.thursday_start }}
+                <label>End Time</label>
+                {{ form.thursday_end }}
+            </div>
+
+            <!-- Friday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Friday</h5>
+                <label>Start Time</label>
+                {{ form.friday_start }}
+                <label>End Time</label>
+                {{ form.friday_end }}
+            </div>
+
+            <!-- Saturday -->
+            <div class="form-group col-md-4" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 10px;">
+                <h5>Saturday</h5>
+                <label>Start Time</label>
+                {{ form.saturday_start }}
+                <label>End Time</label>
+                {{ form.saturday_end }}
+            </div>
+            <input type="hidden" name="student_id" value="{{ student_id }}">
+            <input type="hidden" name="staff_id" value="{{ staff_id }}">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block mt-4">Assign Schedule</button>
+    </form>
+</section>
+
+{% endblock main_content %}

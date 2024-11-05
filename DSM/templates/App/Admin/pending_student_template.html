@@ -1,0 +1,86 @@
+{% extends 'App/Admin/base.html' %}
+{% block page_title %} 
+Pending Students 
+ {% endblock page_title %}
+{% block main_content %}
+
+{% if students %}
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Fixed Header Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fullname</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Date of Birth</th>
+                      <th>Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for students in students %}
+                    <tr>
+                      
+                      <td>{{ students.user.id }}</td>
+                      <td>{{ students.name }}</td>
+                      <td>{{ students.user.email }}</td>
+                      <td>{{ students.address }}</td>
+                      <td>{{ students.dob }}</td> 
+                      <td>{{ students.phone }}</td>
+                      <td><a href="/approve_student/{{ students.user.id }}" class="btn btn-success" 
+                        onclick="return confirm('Are you sure you want to approve this student?');">Approve</a>
+                      <a href="/reject_student/{{ students.user.id }}" class="btn btn-success"
+                      onclick="return confirm('Are you sure you want to reject this student?');">Reject</a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+{% else %}
+
+
+<section class="content">
+  <div class="error-page">
+    <h2 class="headline text-danger">500</h2>
+
+    <div class="error-content">
+      <h1><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h1>
+
+      <p style="font-size: 20px;">
+        It seems like there are no pending request<br>
+        Meanwhile, you may <a href="/manage_student">chack the students details</a> and view them
+      </p>
+
+      
+    </div>
+  </div>
+  <!-- /.error-page -->
+
+</section>
+
+
+
+{% endif %}
+{% endblock main_content %}

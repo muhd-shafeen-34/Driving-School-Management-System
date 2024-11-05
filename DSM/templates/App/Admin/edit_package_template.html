@@ -1,0 +1,70 @@
+{% extends 'App/Admin/base.html' %}
+{% block page_title %} 
+Edit Staff :- {{ packages.name }} 
+ {% endblock page_title %}
+{% block main_content %}
+<!-- main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Editing the packages details</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="/edit_package_save" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="text">Name</label>
+                    <input type="text" class="form-control" placeholder="Name of the package" name="name" value="{{ packages.name }}" required>
+                    <input type="hidden" name="pack_id" value="{{packages.id}}">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="text">Description</label>
+                    <input type="text" class="form-control" placeholder="Enter the Description" name="desc" value="{{ packages.description }}" required>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                      <label for="">Price</label>
+                      <input type="number" class="form-control" name="price" value="{{ packages.price }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Duration</label>
+                      <input type="text" class="form-control" name="duration" value="{{ packages.duration }}" required>
+                    </div>
+                    <div class="form-group">
+                        {% if messages %}
+                            <div class="col-12">
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+                                {% elif message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top: 10px;">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                        </div>
+                      </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+
+
+    </div>
+</section>
+{% endblock main_content %}
+<!-- /.content -->

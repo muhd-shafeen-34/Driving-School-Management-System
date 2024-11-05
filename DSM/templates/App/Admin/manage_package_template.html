@@ -1,0 +1,82 @@
+{% extends 'App/Admin/base.html' %}
+{% block page_title %} Manage Package {% endblock page_title %}
+{% block main_content %}
+<!-- main content -->
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Packages</h3>
+
+          <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Instructor name</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for package in packages %}
+            <tr>
+                <td>{{ package.id }}</td>
+                <td>{{ package.name }}</td>
+                <td>{{ package.description }}</td>
+                <td>{{ package.price }}</td>
+                <td>{{ package.duration }}</td>
+                {% if package.instructor_id %}
+
+                <td>{{ package.instructor.name }}</td>
+                {% else %}
+                <td>Instructor not assigned</td>
+                {% endif %}
+                <td><a href="/students_under/{{ package.id }}"><i class="fa fa-user"></a></td>
+                <td><a href="/edit_package/{{ package.id }}"><i class="fa fa-edit"></a></td>
+                {% if package.instructor_id == NULL %}
+                <td><a href="/assign_staff_package/{{ package.id }}" class="btn btn-success">Assign</a></td>
+                {% else %}
+                <td><a href="/assign_staff_package/{{ package.id }}" class="btn btn-success">Assign another </a></td>
+                {% endif %}
+            </tr>
+              {% endfor %} 
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <div class="form-group">
+      {% if messages %}
+          <div class="col-12">
+          {% for message in messages %}
+              {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+              {% elif message.tags == 'success' %}
+                  <div class="alert alert-success" style="margin-top: 10px;">{{ message }}</div>
+              {% endif %}
+          {% endfor %}
+          </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- /.row -->
+{% endblock main_content %}
+<!-- /.content -->

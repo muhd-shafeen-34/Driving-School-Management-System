@@ -10,12 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = Path.joinpath(BASE_DIR, 'DSM/templates')
 STATIC_DIR = Path.joinpath(BASE_DIR, 'DSM/static')
+AUTH_USER_MODEL = 'App.CustomUser'
+
+
+MEDIA_URL = 'DSM/media/'  # URL to access media files
+MEDIA_ROOT = BASE_DIR / 'DSM' / 'media' # Folder where media files are stored
+
+LOGIN_URL = 'login'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -25,6 +33,17 @@ SECRET_KEY = 'django-insecure-^p@5bdqp*gkpau)$3^)7pxr(chke7ad_s!a+$8teb@*yz6!9rg
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+#settings for sending email to the instructor
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kudumon004@gmail.com'
+EMAIL_HOST_PASSWORD = 'nsje uakp plsp spvh'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#email finish
 
 ALLOWED_HOSTS = []
 
@@ -78,7 +97,7 @@ WSGI_APPLICATION = 'DSM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dsm',
+        'NAME': 'swiggy',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',

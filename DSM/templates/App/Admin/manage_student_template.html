@@ -1,0 +1,96 @@
+{% extends 'App/Admin/base.html' %}
+{% block page_title %} 
+Manage Students 
+ {% endblock page_title %}
+{% block main_content %}
+
+{% if students %}
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Fixed Header Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fullname</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Date of Birth</th>
+                      <th>Phone Number</th>
+                      <th>Instructor Name</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for students in students %}
+                    <tr>
+                      
+                      <td>{{ students.user.id }}</td>
+                      <td>{{ students.name }}</td>
+                      <td>{{ students.user.email }}</td>
+                      <td>{{ students.address }}</td>
+                      <td>{{ students.dob }}</td> 
+                      <td>{{ students.phone }}</td>
+                      {% if students.instructor_id %}
+
+                      <td>{{ students.instructor.name }}</td>
+                        {% else %}
+                      <td>Instructor not assigned</td>
+                         {% endif %}
+
+                      <td><a href="/edit_student/{{ students.user.id }}" class="btn btn-success"
+                        onclick="return confirm('Are you sure you want to edit this student?');"><i class="fa fa-edit"></i></i></a>
+                        <a href="/delete_student/{{ students.user.id }}" class="btn btn-success"
+                        onclick="return confirm('Are you sure you want to delete this student?');"><i class="fa fa-trash"></i></a></td></td>
+                        {% if student.instructor_id == NULL %}
+                <td><a href="/assign_staff_student/{{ students.user.id }}" class="btn btn-success">Assign</a></td>
+                {% else %}
+                <td><a href="/assign_staff_student/{{ students.user.id }}" class="btn btn-success">Assign another </a></td>
+                {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+{% else %}
+  <section class="content">
+  <div class="error-page">
+    <h2 class="headline text-danger">500</h2>
+
+    <div class="error-content">
+      <h1><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h1>
+
+      <p style="font-size: 20px;">
+        It seems like there are no students in your systemt<br>
+        Meanwhile, you may <a href="/register">sent this link </a> to them and let them enter
+      </p>
+
+      
+    </div>
+  </div>
+  <!-- /.error-page -->
+
+</section>
+{% endif %}
+{% endblock main_content %}
