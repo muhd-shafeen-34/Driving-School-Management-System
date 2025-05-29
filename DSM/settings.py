@@ -37,7 +37,7 @@ DEBUG = True
 #settings for sending email to the instructor
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'kudumon004@gmail.com'
+EMAIL_HOST_USER = 'host mail id'
 EMAIL_HOST_PASSWORD = 'host password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
